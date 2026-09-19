@@ -175,7 +175,7 @@ def erreichbar(host=HOST, timeout=10):
     try:
         ergebnis = _matrix(host, (2666000, 1211000), [(2683000, 1247000)], "truck", timeout)
         km = ergebnis[0].get("distance")
-        return True, f"Valhalla antwortet, Testroute Luzern–Zug: {km} km"
+        return True, f"Valhalla antwortet, Testroute Luzern–Zürich: {km} km"
     except urllib.error.URLError as e:
         return False, f"Valhalla nicht erreichbar unter {host}: {e.reason}"
     except Exception as e:

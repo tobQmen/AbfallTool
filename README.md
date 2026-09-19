@@ -8,9 +8,29 @@ von eGov.Swiss (BAFU).
 Rangfolge nach VVEA-Verfahrenshierarchie. Die ökologische Bilanzierung (CO2 und UBP)
 folgt im nächsten Schritt.
 
-## Einrichtung (einmalig)
+## Schnellstart mit Oberfläche
 
-    py -m pip install pandas openpyxl
+Alle Dateien in denselben Ordner legen, dann:
+
+- **macOS:** Doppelklick auf `start.command`
+- **Windows:** Doppelklick auf `start.bat`
+
+Beim ersten Start richtet sich die Arbeitsumgebung selbst ein (ein bis zwei Minuten),
+danach öffnet sich die Oberfläche im Browser. Sie führt durch alle Schritte:
+Export einlesen, Koordinaten ergänzen, Baustelle festlegen, Liste erstellen und als
+Excel herunterladen. Voraussetzung ist eine Python-Installation
+(macOS bringt sie mit, unter Windows aus dem Microsoft Store oder von python.org).
+
+Die Oberfläche zeigt die Anlagen auf einer Karte mit swisstopo-Hintergrund (Landeskarte
+oder Luftbild), Punkte sind anklickbar, und eine in der Tabelle gewählte Zeile wird
+hervorgehoben. Über den Knopf «GeoJSON für QGIS erzeugen» entstehen dieselben Daten als
+Dateien für die genauere Auswertung in QGIS.
+
+Wer lieber über die Kommandozeile arbeitet, findet unten alle Einzelschritte.
+
+## Einrichtung für die Kommandozeile
+
+    py -m pip install pandas openpyxl streamlit folium streamlit-folium
 
 Alle Dateien gehören in denselben Ordner, die Skripte importieren sich gegenseitig.
 
@@ -253,6 +273,9 @@ Manuelle Werte haben Vorrang vor Geokodierung und Export und überleben jeden Im
 | `baustellen.py` | Baustellen speichern |
 | `abfrage.py` | Anlagen zu einem Abfallcode suchen |
 | `liste.py` | Entsorgungsliste aus Codevorlage erstellen |
+| `app.py` | Oberfläche im Browser (Streamlit), führt durch alle Schritte |
+| `start.command` / `start.bat` | Startdatei für macOS bzw. Windows |
+| `karte.py` | GeoJSON-Export für QGIS, ein Punkt je Anlage und Abfallcode |
 | `bewertung.py` | Rangfolge der Entsorgungsverfahren nach VVEA-Hierarchie |
 | `routing.py` | Strassendistanzen über Valhalla, mit Cache in `routen.db` |
 | `docker-compose.yml` | Valhalla-Routing für die Schweiz |
