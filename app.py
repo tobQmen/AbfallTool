@@ -15,7 +15,7 @@ import streamlit as st
 
 import baustellen
 from abfrage import anlagen_fuer_code, normalisiere_code
-from koordinaten import parse_standort
+from koordinaten import parse_standort, lv95_zu_wgs84
 from liste import erstelle, lade_vorlage, positionen, VORLAGEN
 
 try:
@@ -224,7 +224,7 @@ elif seite.startswith("3"):
                 st.error(str(fehler))
             else:
                 daten = baustellen.laden()
-                lat, lon = __import__("koordinaten").lv95_zu_wgs84(e, n)
+                lat, lon = lv95_zu_wgs84(e, n)
                 daten[name] = {"e_lv95": e, "n_lv95": n, "lat": round(lat, 6),
                                "lon": round(lon, 6), "notiz": notiz}
                 baustellen.speichern(daten)
@@ -315,7 +315,7 @@ else:
     with sqlite3.connect(DB) as con:
         orte = pd.read_sql("SELECT betriebsnummer, lat, lon FROM anlagen", con)
     karte = tabelle.merge(orte, on="betriebsnummer", how="left").dropna(subset=["lat"])
-    lat_bs, lon_bs = __import__("koordinaten").lv95_zu_wgs84(*baustellen.hole(bs))
+    lat_bs, lon_bs = lv95_zu_wgs84(*baustellen.hole(bs))
     if not karte.empty:
         if FOLIUM:
             hintergrund = st.radio("Hintergrund", list(SWISSTOPO), horizontal=True,

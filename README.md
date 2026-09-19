@@ -30,7 +30,7 @@ Wer lieber über die Kommandozeile arbeitet, findet unten alle Einzelschritte.
 
 ## Einrichtung für die Kommandozeile
 
-    py -m pip install pandas openpyxl streamlit folium streamlit-folium
+    py -m pip install -r requirements.txt
 
 Alle Dateien gehören in denselben Ordner, die Skripte importieren sich gegenseitig.
 
@@ -297,3 +297,7 @@ Erzeugt werden `abfallanlagen.db`, `routen.db`, `geocode_cache.json`, `baustelle
 Eine Bewilligung sagt nichts über Kapazität, Preis oder Annahmebedingungen aus.
 Das Tool liefert Vorschläge, keine verbindliche Zuweisung. Im Export stecken vereinzelt
 Testdatensätze des BAFU (z. B. «Test Novemberrelease 2021»).
+
+## Lizenz
+
+MIT, siehe [LICENSE](LICENSE).
