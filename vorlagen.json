@@ -1,0 +1,550 @@
+{
+  "quelle": "Struktur nach BAFU-Entsorgungstabelle Bauabfälle, VVEA-Vollzugshilfe Modul «Bauabfälle» (2020). Entsorgungswege gekürzt wiedergegeben – im Zweifel die Vollzugshilfe konsultieren.",
+  "vorlagen": {
+    "bauabfaelle": {
+      "bezeichnung": "Bauabfälle nach BAFU-Entsorgungstabelle (VVEA-Vollzugshilfe)",
+      "abschnitte": [
+        {
+          "titel": "1. Unbelastetes/unverschmutztes Material",
+          "positionen": [
+            {
+              "abfallart": "Oberboden",
+              "details": "humose Schicht, i.d.R. 0–20 cm, unbelastet",
+              "code": "17 05 04",
+              "entsorgungsweg": "Möglichst vollständige Verwertung als Boden (Art. 18 VVEA); sonst Deponie nach Anhang 5 VVEA",
+              "v_pflicht": true,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Unterboden",
+              "details": "i.d.R. 20–100 cm, unbelastet",
+              "code": "17 05 04",
+              "entsorgungsweg": "Möglichst vollständige Verwertung als Boden (Art. 18 VVEA); sonst Deponie nach Anhang 5 VVEA",
+              "v_pflicht": true,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Aushub- und Ausbruchmaterial",
+              "details": "unverschmutzt, A-Material",
+              "code": "17 05 06",
+              "entsorgungsweg": "Verwertung nach Art. 19 VVEA: Baustoff, Rohstoff, Wiederauffüllung von Materialentnahmestellen, bewilligte Terrainveränderungen; sonst Deponie Typ A",
+              "v_pflicht": true,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Ausbauasphalt",
+              "details": "< 250 mg PAK/kg",
+              "code": "17 03 02",
+              "entsorgungsweg": "Nach Art. 20 und 52 VVEA",
+              "v_pflicht": true,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Strassenaufbruch",
+              "details": "ungebundene und stabilisierte Fundations-/Tragschichten",
+              "code": "17 01 98",
+              "entsorgungsweg": "Als Rohstoff für Baustoffe verwerten; sonst Deponie Typ B",
+              "v_pflicht": true,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Betonabbruch",
+              "details": "unverschmutzt, U-Beton",
+              "code": "17 01 01",
+              "entsorgungsweg": "Als Rohstoff für Baustoffe oder als Baustoff auf Deponien verwerten; sonst Deponie Typ B",
+              "v_pflicht": true,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Mischabbruch",
+              "details": "mineralische Bauabfälle",
+              "code": "17 01 07",
+              "entsorgungsweg": "Möglichst vollständig als Rohstoff für Baustoffe verwerten; sonst Deponie Typ B",
+              "v_pflicht": true,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Ziegelbruch",
+              "details": "Dachziegel",
+              "code": "17 01 02",
+              "entsorgungsweg": "Möglichst vollständig als Rohstoff für Baustoffe verwerten; sonst Deponie Typ B",
+              "v_pflicht": true,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Gips",
+              "details": "",
+              "code": "17 08 02",
+              "entsorgungsweg": "Gipsrecycling, Deponie Typ B",
+              "v_pflicht": false,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Glas",
+              "details": "Glasbruch/Flachglas",
+              "code": "17 02 02",
+              "entsorgungsweg": "Flachglasrecycling, Deponie Typ B",
+              "v_pflicht": false,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Altholz",
+              "details": "ohne gefährliche Stoffe",
+              "code": "17 02 97",
+              "entsorgungsweg": "KVA, Altholzfeuerung oder Recycling (Holz aus Aussenbereich/Dachkonstruktion vorgängig untersuchen)",
+              "v_pflicht": false,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Kunststoffe",
+              "details": "sauber, sortenrein",
+              "code": "17 02 03",
+              "entsorgungsweg": "KVA oder Kunststoffrecycling",
+              "v_pflicht": false,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Metalle",
+              "details": "Code je nach Metall (17 04 xy)",
+              "code": "17 04 07",
+              "entsorgungsweg": "Recycling/Schmelzwerk",
+              "v_pflicht": false,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Dämmmaterial mineralisch",
+              "details": "Steinwolle, Glaswolle, ohne Schadstoffe",
+              "code": "17 06 04",
+              "entsorgungsweg": "Recycling, Deponie Typ B",
+              "v_pflicht": false,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Dämmmaterial brennbar",
+              "details": "EPS, XPS, PUR, ohne Schadstoffe",
+              "code": "17 06 04",
+              "entsorgungsweg": "KVA",
+              "v_pflicht": false,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Brennbare Abfälle",
+              "details": "nicht stofflich verwertbar",
+              "code": "17 09 98",
+              "entsorgungsweg": "KVA",
+              "v_pflicht": false,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Unsortierte Bauabfälle / Bausperrgut",
+              "details": "",
+              "code": "17 09 04",
+              "entsorgungsweg": "Bausperrgutsortieranlage",
+              "v_pflicht": false,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            }
+          ]
+        },
+        {
+          "titel": "2. Belastetes/verschmutztes Material",
+          "positionen": [
+            {
+              "abfallart": "Boden, schwach belastet",
+              "details": "",
+              "code": "17 05 93",
+              "entsorgungsweg": "Verwertung nach Vollzugshilfe «Bodenschutz beim Bauen»; sonst Deponie Typ B oder Rohmaterial Zementherstellung",
+              "v_pflicht": true,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Boden, wenig belastet (B)",
+              "details": "",
+              "code": "17 05 96",
+              "entsorgungsweg": "Deponie Typ B",
+              "v_pflicht": false,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Boden, stark belastet (E)",
+              "details": "",
+              "code": "17 05 90",
+              "entsorgungsweg": "Deponie Typ E",
+              "v_pflicht": false,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Boden mit gefährlichen Stoffen (S)",
+              "details": "",
+              "code": "17 05 03",
+              "entsorgungsweg": "Bodenwäsche, Zementwerk oder thermische Behandlung",
+              "v_pflicht": false,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Aushub-/Ausbruchmaterial, schwach verschmutzt (T)",
+              "details": "",
+              "code": "17 05 94",
+              "entsorgungsweg": "Möglichst vollständig verwerten: Rohstoff für gebundene Baustoffe, Baustoff auf Deponien Typ B–E, Zementklinker, belastete Standorte",
+              "v_pflicht": true,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Aushub-/Ausbruchmaterial, wenig verschmutzt (B)",
+              "details": "",
+              "code": "17 05 97",
+              "entsorgungsweg": "Bodenwäsche, Zementwerk oder Deponie Typ B; Behandlung nach Art. 12 VVEA prüfen",
+              "v_pflicht": true,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Aushub-/Ausbruchmaterial, stark verschmutzt (E)",
+              "details": "",
+              "code": "17 05 91",
+              "entsorgungsweg": "Bodenwäsche, Zementwerk oder Deponie Typ E; Behandlung nach Art. 12 VVEA prüfen",
+              "v_pflicht": true,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Aushub-/Ausbruchmaterial mit gefährlichen Stoffen (S)",
+              "details": "",
+              "code": "17 05 05",
+              "entsorgungsweg": "Bodenwäsche, Zementwerk oder thermische Behandlung",
+              "v_pflicht": false,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Ausbauasphalt 250–1000 mg PAK/kg",
+              "details": "",
+              "code": "17 03 01",
+              "entsorgungsweg": "Nach Art. 52 VVEA",
+              "v_pflicht": false,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Ausbauasphalt > 1000 mg PAK/kg",
+              "details": "",
+              "code": "17 03 03",
+              "entsorgungsweg": "Nach Art. 52 VVEA",
+              "v_pflicht": false,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Betonabbruch, wenig/stark verschmutzt (B/E)",
+              "details": "",
+              "code": "17 09 04",
+              "entsorgungsweg": "Bodenwäsche, Zementwerk oder Deponie Typ B bzw. Typ E",
+              "v_pflicht": false,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Betonabbruch mit gefährlichen Stoffen (S)",
+              "details": "",
+              "code": "17 09 03",
+              "entsorgungsweg": "Bodenwäsche oder Zementwerk",
+              "v_pflicht": false,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Asbest, gebundene Fasern",
+              "details": "z. B. Asbestzement-Dach-/Fassadenplatten",
+              "code": "17 06 98",
+              "entsorgungsweg": "Deponie Typ B bzw. nach Vollzugshilfe «Entsorgung asbesthaltiger Abfälle»",
+              "v_pflicht": false,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Asbest, freie Fasern",
+              "details": "schwach gebundener Asbest, Fliesenkleber",
+              "code": "17 06 05",
+              "entsorgungsweg": "Deponie Typ E bzw. nach Vollzugshilfe «Entsorgung asbesthaltiger Abfälle»",
+              "v_pflicht": false,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "PCB-/CP-haltige Fugendichtungen und Anstriche",
+              "details": "",
+              "code": "17 09 02",
+              "entsorgungsweg": "< 10 000 mg/kg: KVA; > 10 000 mg/kg: Sonderabfallverbrennung (SAVA)",
+              "v_pflicht": false,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Teerhaltige Baustoffe",
+              "details": "Dachpappen und Dichtungsbahnen nicht als Monoabfall",
+              "code": "17 03 03",
+              "entsorgungsweg": "KVA, Zementwerk, thermische Verwertung",
+              "v_pflicht": false,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Holz mit Schadstoffen",
+              "details": "Holzschutzmittel, Bleianstrich, Eisenbahnschwellen",
+              "code": "17 02 98",
+              "entsorgungsweg": "KVA oder Zementwerk",
+              "v_pflicht": false,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Schadstoffhaltige Dämmstoffe",
+              "details": "FCKW/HFKW/HFCKW, PUR-Sandwichplatten",
+              "code": "17 06 03",
+              "entsorgungsweg": "KVA nach zerstörungsfreiem Rückbau; sonst Behandlung bei bewilligtem Unternehmen",
+              "v_pflicht": false,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Metall mit schadstoffhaltigem Anstrich",
+              "details": "",
+              "code": "17 04 09",
+              "entsorgungsweg": "Recycling/Schmelzwerk; bei > 2 g PCB/t Beschichtung vorgängig entfernen",
+              "v_pflicht": false,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            }
+          ]
+        }
+      ]
+    },
+    "tunnel": {
+      "bezeichnung": "Tunnelbaustelle – Betrieb (Ergänzung zur BAFU-Tabelle)",
+      "abschnitte": [
+        {
+          "titel": "1. Ausbruch und mineralische Abfälle",
+          "positionen": [
+            {
+              "abfallart": "Ausbruchmaterial unverschmutzt",
+              "details": "",
+              "code": "17 05 06",
+              "entsorgungsweg": "Verwertung nach Art. 19 VVEA; sonst Deponie Typ A",
+              "v_pflicht": true,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Ausbruchmaterial mit gefährlichen Stoffen (S)",
+              "details": "z. B. Bereiche mit Altlastenverdacht",
+              "code": "17 05 05",
+              "entsorgungsweg": "Bodenwäsche, Zementwerk oder thermische Behandlung",
+              "v_pflicht": false,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Betonabbruch (Spritzbeton, Ausbruchsicherung)",
+              "details": "",
+              "code": "17 01 01",
+              "entsorgungsweg": "Als Rohstoff für Baustoffe verwerten; sonst Deponie Typ B",
+              "v_pflicht": true,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Ausbauasphalt",
+              "details": "< 250 mg PAK/kg",
+              "code": "17 03 02",
+              "entsorgungsweg": "Nach Art. 20 und 52 VVEA",
+              "v_pflicht": true,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            }
+          ]
+        },
+        {
+          "titel": "2. Betriebsabfälle Installationsplatz",
+          "positionen": [
+            {
+              "abfallart": "Eisen und Stahl",
+              "details": "Armierung, Ausbaubogen, Anker",
+              "code": "17 04 05",
+              "entsorgungsweg": "Recycling/Schmelzwerk",
+              "v_pflicht": false,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Gemischte Metalle",
+              "details": "",
+              "code": "17 04 07",
+              "entsorgungsweg": "Recycling/Schmelzwerk",
+              "v_pflicht": false,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Kunststoff",
+              "details": "Abdichtungsbahnen, Rohre, Vlies",
+              "code": "17 02 03",
+              "entsorgungsweg": "KVA oder Kunststoffrecycling",
+              "v_pflicht": false,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Gemischte Bauabfälle / Bausperrgut",
+              "details": "",
+              "code": "17 09 04",
+              "entsorgungsweg": "Bausperrgutsortieranlage",
+              "v_pflicht": false,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Gemischte Verpackungen",
+              "details": "",
+              "code": "15 01 06",
+              "entsorgungsweg": "Sortieranlage oder KVA",
+              "v_pflicht": false,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Gemischte Siedlungsabfälle",
+              "details": "Büro, Kantine, Unterkunft",
+              "code": "20 03 01",
+              "entsorgungsweg": "KVA",
+              "v_pflicht": false,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            }
+          ]
+        },
+        {
+          "titel": "3. Sonderabfälle Werkstatt und Maschinen",
+          "positionen": [
+            {
+              "abfallart": "Altöl",
+              "details": "Maschinen-, Getriebe-, Schmieröle",
+              "code": "13 02 05",
+              "entsorgungsweg": "Altölaufbereitung oder thermische Verwertung",
+              "v_pflicht": false,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Schlamm aus Öl-/Wasserabscheider",
+              "details": "",
+              "code": "13 05 02",
+              "entsorgungsweg": "Behandlung in bewilligter Anlage",
+              "v_pflicht": false,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Ölbindemittel, Filter, verschmutzte Lappen",
+              "details": "",
+              "code": "15 02 02",
+              "entsorgungsweg": "KVA oder Sonderabfallverbrennung",
+              "v_pflicht": false,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Bleibatterien",
+              "details": "",
+              "code": "16 06 01",
+              "entsorgungsweg": "Recycling in bewilligter Anlage",
+              "v_pflicht": false,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            },
+            {
+              "abfallart": "Altreifen",
+              "details": "",
+              "code": "16 01 03",
+              "entsorgungsweg": "Stoffliche oder thermische Verwertung, Zementwerk",
+              "v_pflicht": false,
+              "menge_m3_fest": null,
+              "menge_m3_lose": null,
+              "menge_t": null
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

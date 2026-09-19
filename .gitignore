@@ -1,0 +1,31 @@
+# Daten und Zwischenstände – gehören nicht ins Repository
+abfallanlagen.db
+abfallanlagen.db.tmp
+routen.db
+geocode_cache.json
+aenderungen_*.csv
+
+# Projektbezogene Angaben (Baustellenkoordinaten, eigene Korrekturen)
+baustellen.json
+koordinaten_manuell.json
+vorlagen_*.json
+
+# BAFU-Export und erzeugte Listen
+*.xlsx
+*.xls
+*.csv
+*.geojson
+
+# Valhalla
+custom_files/
+*.osm.pbf
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Betriebssystem
+.DS_Store
+Thumbs.db
