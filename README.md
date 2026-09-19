@@ -96,7 +96,7 @@ vollständig durchgelaufen ist.
 
 ---
 
-## Tägliche Arbeit
+## Regelmässige Arbeit
 
 ### Baustelle anlegen
 
