@@ -1,0 +1,26 @@
+# Valhalla-Routing für die Schweiz. Im Ordner mit dieser Datei:
+#   docker compose up -d          (erster Start baut Kacheln und Höhendaten, dauert 30-60 Min.)
+#   docker compose logs -f        (Fortschritt ansehen, mit Ctrl-C verlassen)
+# Danach läuft der Dienst unter http://localhost:8002 und startet mit Docker automatisch.
+services:
+  valhalla:
+    image: ghcr.io/gis-ops/docker-valhalla/valhalla:latest
+    container_name: valhalla_ch
+    ports:
+      - "8002:8002"
+    volumes:
+      - ./custom_files/:/custom_files
+    environment:
+      - tile_urls=https://download.geofabrik.de/europe/switzerland-latest.osm.pbf
+      # Bounding Box Schweiz mit Rand, begrenzt den Bauaufwand
+      - min_x=5.8
+      - min_y=45.7
+      - max_x=10.6
+      - max_y=47.9
+      - use_tiles_ignore_pbf=True
+      - force_rebuild=False
+      - build_admins=True
+      - build_time_zones=False
+      - build_elevation=True
+      - server_threads=4
+    restart: unless-stopped
