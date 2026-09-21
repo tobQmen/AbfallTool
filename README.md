@@ -57,16 +57,15 @@ Alle Dateien gehören in denselben Ordner, die Skripte importieren sich gegensei
 
 Immer in dieser Reihenfolge, weil der Import die Anlagentabelle neu aufbaut:
 
-    py import_bafu.py Export.xlsx          # 1. Daten einlesen
-    py geokodierung.py                     # 2. fehlende Koordinaten ergänzen
-    py geokodierung.py --auch-unplausibel  # 3. verdächtige Koordinaten ersetzen
-    py kontrolle.py                        # 4. Ergebnis prüfen
+    py import_bafu.py Export.xlsx                # 1. Daten einlesen
+    py geokodierung.py                           # 2. fehlende Koordinaten ergänzen
+    py kontrolle.py --status unplausibel         # 3. verdächtige Koordinaten prüfen
 
-Schritt 2 und 3 dauern beim ersten Mal einige Minuten. Danach liegen die Antworten in
+Schritt 2 dauert beim ersten Mal einige Minuten. Danach liegen die Antworten in
 `geocode_cache.json` und der Lauf geht in Sekunden. Manuelle Korrekturen aus
 `koordinaten_manuell.json` werden am Ende von Schritt 1 automatisch wieder angewendet.
 
-### Was die beiden Geokodierungsläufe tun
+### Was die Schritte 2 und 3 tun
 
 **Schritt 2** nimmt alle Anlagen mit Status `fehlt`, also leere oder unbrauchbare
 Koordinaten. Pro Anlage werden alle Suchvarianten abgefragt (Strasse mit Hausnummer,
@@ -74,12 +73,14 @@ Flur- oder Objektname mit Ort, Strasse allein, PLZ mit Ort) und der **genaueste*
 Treffer übernommen. Ein nur ortsgenauer Treffer kommt erst zum Zug, wenn keine
 Variante eine Adresse liefert.
 
-**Schritt 3** nimmt zusätzlich die Anlagen mit Status `unplausibel`. Das sind jene,
-deren Koordinate im Export zwar formal gültig ist, aber weit weg von allen anderen
-Anlagen mit gleicher PLZ liegt, also mit hoher Wahrscheinlichkeit falsch. Ihr
-Exportwert wird durch den Adresstreffer ersetzt. Ohne `--auch-unplausibel` bleiben
-sie unangetastet, weil das Überschreiben vorhandener Werte bewusst ein eigener
-Schritt ist.
+**Schritt 3** betrifft die Anlagen mit Status `unplausibel`. Ihre Koordinate ist
+formal gültig, liegt aber über 20 km von den anderen Anlagen mit gleicher PLZ entfernt.
+Ein Zahlendreher (zwei vertauschte Ziffern) wird schon beim Import erkannt und
+korrigiert. Die übrigen Fälle werden nur markiert und nicht automatisch ersetzt: Meist
+ist dort nicht die Koordinate falsch, sondern die Adresse ist die Firmen- oder
+Postadresse, etwa bei Deponien im ganzen Kanton Graubünden mit Adresse Chur. Ein
+Adresstreffer würde den Standort dann verschlechtern. Diese Fälle in der Karte prüfen
+und nur bei Bedarf mit `korrekturen.py` von Hand setzen.
 
 Einzelne Abfrage zum Ausprobieren, zeigt Rohantwort und Auswertung:
 
@@ -167,9 +168,24 @@ aber nötig und lassen sich so direkt ausfüllen.
 Ohne Routing rechnet das Tool mit Luftlinie. In der Spalte `distanz_quelle` steht bei
 jedem Vorschlag, welcher Wert verwendet wurde.
 
-### Valhalla einmalig aufsetzen (Mac mit Docker)
+### Valhalla einmalig aufsetzen (Docker)
 
-`docker-compose.yml` in einen Ordner legen, dort:
+Valhalla läuft in Docker, auf macOS und Windows mit derselben `docker-compose.yml`.
+
+**macOS:** [Docker Desktop](https://www.docker.com/products/docker-desktop/) installieren
+und starten.
+
+**Windows:** [Docker Desktop](https://www.docker.com/products/docker-desktop/) installieren.
+Bei der Installation die Option «Use WSL 2» aktiviert lassen; fehlt WSL noch, bietet
+Docker Desktop die Einrichtung an (danach einmal neu starten). Die Befehle unten laufen
+in PowerShell.
+
+Auf beiden Systemen in den Einstellungen von Docker Desktop «Start Docker Desktop when you
+sign in» aktivieren, sonst startet Valhalla nach einem Neustart nicht von selbst. Für den
+Aufbau der Kacheln braucht Docker genügend Arbeitsspeicher; mit weniger als etwa 8 GB
+kann der erste Start abbrechen.
+
+Dann im Ordner mit der `docker-compose.yml`:
 
     docker compose up -d
     docker compose logs -f
@@ -178,9 +194,10 @@ Der erste Start lädt den Schweiz-Extrakt von OpenStreetMap samt Höhendaten und
 daraus die Routing-Kacheln. Das dauert je nach Rechner 30 bis 60 Minuten und braucht
 einige GB Platz. Die Höhendaten (`build_elevation=True`) werden nicht für die Routenwahl
 gebraucht, sondern um pro Strecke Steigung und Gefälle zu erfassen – Grundlage für einen
-späteren topografischen Zuschlag in der CO2-Bilanz. Danach läuft der Dienst unter `http://localhost:8002` und startet mit Docker
-automatisch mit. Gerechnet wird mit dem Lastwagenprofil (Gewicht, Höhe, Breite), das
-in `routing.py` unter `LKW` angepasst werden kann.
+späteren topografischen Zuschlag in der CO2-Bilanz. Danach läuft der Dienst unter
+`http://localhost:8002` und startet mit Docker automatisch mit. Gerechnet wird mit dem
+Lastwagenprofil (Gewicht, Höhe, Breite), das in `routing.py` unter `LKW` angepasst
+werden kann.
 
 ### Strecken berechnen und speichern
 
@@ -190,7 +207,9 @@ Erreichbarkeit prüfen, dann für eine Baustelle rechnen:
     py routing.py --baustelle Sedrun --vorlage tunnel --top 20 --umkreis 60 --hoehen
     py routing.py --cache          # welche Baustellen sind gerechnet
 
-Vom PC aus mit dem Mac im selben Netz: `--host http://<name-des-mac>.local:8002`.
+Läuft Valhalla auf einem anderen Rechner im selben Netz, etwa auf einem Mac:
+`--host http://<name-des-rechners>.local:8002`. Unter Windows als Server muss die Firewall
+Port 8002 zulassen.
 
 Berechnet werden nur die nächstgelegenen Anlagen pro Code (`--top`), vorgefiltert über
 die Luftlinie (`--umkreis`). Die Ergebnisse landen in **`routen.db`**. Diese Datei ist
@@ -208,7 +227,7 @@ die topografische Korrektur der Emissionen.
 `abfrage.py` und `liste.py` nehmen automatisch die gespeicherte Strassendistanz, wo eine
 vorliegt, sonst die Luftlinie. Nimm `routen.db` einfach mit auf den Stick, dann brauchst
 du Valhalla unterwegs nicht. Für eine neue Baustelle oder einen grösseren Umkreis lässt
-du `routing.py` einmal auf dem Mac nachlaufen.
+du `routing.py` einmal auf dem Rechner mit Valhalla nachlaufen.
 
 Koordinaten werden für den Cache auf 10 m gerundet, damit kleine Korrekturen an einem
 Standort nicht jede Strecke ungültig machen.
@@ -227,12 +246,12 @@ Geokodierung oder von Hand stammen:
 Erwartbar ist, dass fast alles `geokodiert` ist und nur ein kleiner Rest
 `geokodiert_grob`. Ein grosser grober Anteil deutet auf ein Problem hin, etwa einen
 veralteten `geocode_cache.json` nach einer Änderung der Suchlogik. Dann Cache löschen
-und Schritt 2 und 3 wiederholen.
+und Schritt 2 wiederholen.
 
 **2. Die unsicheren Fälle einzeln prüfen.** Das sind die groben Treffer und die
-ersetzten unplausiblen Werte:
+unplausiblen Werte:
 
-    py kontrolle.py --status geokodiert_grob --csv pruefen.csv
+    py kontrolle.py --status geokodiert_grob,unplausibel --csv pruefen.csv
 
 Die CSV enthält pro Anlage einen Link auf map.geo.admin.ch mit Fadenkreuz und Luftbild.
 Ein Klick zeigt, ob der Punkt auf der Anlage liegt oder irgendwo im Dorfzentrum.
@@ -271,11 +290,27 @@ Manuelle Werte haben Vorrang vor Geokodierung und Export und überleben jeden Im
 |---|---|
 | `manuell` | von Hand gesetzt, höchste Priorität |
 | `ok` | Originalwert aus dem Export, plausibel |
-| `repariert` | LV03-Wert, vertauschte Achsen oder fehlendes Präfix korrigiert |
+| `repariert` | LV03-Wert, vertauschte Achsen, fehlendes Präfix oder Zahlendreher korrigiert |
 | `geokodiert` | über swisstopo adress- oder parzellengenau ermittelt |
 | `geokodiert_grob` | nur Ortschaft, Gemeinde oder Flurname – kann einige km abweichen |
-| `unplausibel` | über 20 km vom Median der Anlagen gleicher PLZ entfernt |
+| `unplausibel` | über 20 km vom Median der Anlagen gleicher PLZ entfernt, wird verwendet, aber nicht ersetzt |
 | `fehlt` | leer, nicht reparierbar und nicht geokodierbar |
+
+---
+
+## Datenqualität des Exports melden
+
+    py datenqualitaet.py
+
+erstellt `datenqualitaet_abfallanlagen.xlsx` mit drei Blättern: alle Anlagen mit
+fehlender oder auffälliger Koordinate (Originalwert, Befund, Korrekturvorschlag mit
+Quelle und Kartenlinks), die Einträge, die nach Testdaten aussehen, und Hinweise zur
+Lesart. Erkannt werden unter anderem fehlende Werte, LV03-Werte, vertauschte Achsen,
+Tippfehler, Zahlendreher und Adressen, die über 20 km vom Standort entfernt liegen.
+
+Die Datei eignet sich als Rückmeldung an die Stellen, die die Daten pflegen. Die
+Vorschläge stammen aus Umrechnung und Adresssuche und sind nicht vor Ort geprüft.
+Am besten nach Import und Geokodierung ausführen, dann sind die Vorschläge vollständig.
 
 ---
 
@@ -287,6 +322,7 @@ Manuelle Werte haben Vorrang vor Geokodierung und Export und überleben jeden Im
 | `geokodierung.py` | fehlende Koordinaten über swisstopo ergänzen |
 | `korrekturen.py` | manuelle Koordinaten verwalten und anwenden |
 | `kontrolle.py` | Koordinaten prüfen, Kartenlinks, GeoJSON |
+| `datenqualitaet.py` | Prüfbericht zu fehlenden und fehlerhaften Koordinaten im Export |
 | `baustellen.py` | Baustellen speichern |
 | `abfrage.py` | Anlagen zu einem Abfallcode suchen |
 | `liste.py` | Entsorgungsliste aus Codevorlage erstellen |

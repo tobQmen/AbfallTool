@@ -19,7 +19,7 @@ import sys
 
 import pandas as pd
 
-from koordinaten import repariere, lv95_zu_wgs84, distanz_luftlinie_km
+from koordinaten import repariere, lv95_zu_wgs84, distanz_luftlinie_km, zahlendreher
 from korrekturen import anwenden as korrekturen_anwenden
 
 ERWARTETE_SPALTEN = [
@@ -70,17 +70,27 @@ def baue_anlagen(df):
     ]].copy()
     res = a.apply(lambda r: repariere(r.x_roh, r.y_roh), axis=1, result_type="expand")
     a["e_lv95"], a["n_lv95"], a["koord_status"] = res[0], res[1], res[2]
+    a["koord_quelle"] = a.e_lv95.notna().map({True: "Export", False: None})
 
-    # Plausibilität: Abstand zum Median der übrigen Anlagen mit gleicher PLZ
+    # Plausibilität: Abstand zum Median der übrigen Anlagen mit gleicher PLZ.
+    # Ein Zahlendreher wird korrigiert. Sonst bleibt die Koordinate stehen und wird
+    # nur markiert: Oft ist nicht sie falsch, sondern die PLZ ist die Firmen- oder
+    # Postadresse (z. B. Deponien im ganzen Kanton mit Adresse Chur).
     gueltig = a[a.e_lv95.notna()]
     for plz, gruppe in gueltig.groupby("plz"):
         if len(gruppe) < 3:
             continue
         for idx, r in gruppe.iterrows():
             andere = gruppe.drop(idx)
-            d = distanz_luftlinie_km(r.e_lv95, r.n_lv95,
-                                     andere.e_lv95.median(), andere.n_lv95.median())
-            if d > PLAUSI_RADIUS_KM:
+            me, mn = andere.e_lv95.median(), andere.n_lv95.median()
+            if distanz_luftlinie_km(r.e_lv95, r.n_lv95, me, mn) <= PLAUSI_RADIUS_KM:
+                continue
+            korrigiert = zahlendreher(r.e_lv95, r.n_lv95, me, mn)
+            if korrigiert:
+                a.at[idx, "e_lv95"], a.at[idx, "n_lv95"] = korrigiert
+                a.at[idx, "koord_status"] = "repariert"
+                a.at[idx, "koord_quelle"] = "Export, Zahlendreher korrigiert"
+            else:
                 a.at[idx, "koord_status"] = "unplausibel"
 
     ll = a.apply(lambda r: lv95_zu_wgs84(r.e_lv95, r.n_lv95)

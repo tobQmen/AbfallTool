@@ -162,21 +162,18 @@ elif seite.startswith("2"):
         "Ein Teil der Anlagen hat im Export keine oder eine falsche Koordinate. "
         "Die Adresssuche von swisstopo ergänzt sie. Das dauert beim ersten Mal einige "
         "Minuten, danach greift ein Zwischenspeicher.")
-    spalte1, spalte2 = st.columns(2)
-    if spalte1.button("Fehlende ergänzen", type="primary"):
+    if st.button("Fehlende ergänzen", type="primary"):
         platz = st.empty()
         ok, _ = lauf(["geokodierung.py"], platz)
         st.cache_data.clear()
         st.success("Fertig") if ok else st.error("Fehler")
-    if spalte2.button("Verdächtige ersetzen"):
-        platz = st.empty()
-        ok, _ = lauf(["geokodierung.py", "--auch-unplausibel"], platz)
-        st.cache_data.clear()
-        st.success("Fertig") if ok else st.error("Fehler")
+    st.caption("Koordinaten mit Status «unplausibel» werden nicht automatisch ersetzt. "
+               "Meist ist dort die Adresse die Firmen- oder Postadresse und die Koordinate "
+               "richtig. Bitte unten in der Karte prüfen und nur bei Bedarf korrigieren.")
 
     with sqlite3.connect(DB) as con:
         pruef = pd.read_sql(
-            "SELECT betriebsnummer, firma, ort, kanton, koord_status, koord_quelle, "
+            "SELECT betriebsnummer, standortname, firma, ort, kanton, koord_status, koord_quelle, "
             "e_lv95, n_lv95 FROM anlagen WHERE koord_status NOT IN ('ok','geokodiert','manuell')",
             con)
     if not pruef.empty:

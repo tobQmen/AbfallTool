@@ -6,11 +6,15 @@ Als Modul:
 
 Als Skript (ergänzt fehlende Anlagenkoordinaten in der Datenbank):
     python geokodierung.py                      # alle mit Status 'fehlt'
-    python geokodierung.py --auch-unplausibel   # zusätzlich die 20 verdächtigen
     python geokodierung.py --test "Sedrun"      # einzelne Abfrage prüfen
 
 Es werden alle Suchvarianten geprüft und der genaueste Treffer genommen; ein nur
 ortsgenauer Treffer kommt erst zum Zug, wenn keine Variante eine Adresse liefert.
+
+Anlagen mit Status 'unplausibel' werden bewusst nicht geokodiert: Dort ist meist die
+Adresse die Firmen- oder Postadresse, die Koordinate aber richtig. Ein Adresstreffer
+würde den Standort verschlechtern. Diese Fälle mit kontrolle.py prüfen und bei Bedarf
+mit korrekturen.py von Hand setzen.
 
 Ergebnisse werden in geocode_cache.json zwischengespeichert, damit ein zweiter
 Lauf keine erneuten Abfragen auslöst.
@@ -119,17 +123,14 @@ def suchtexte(anlage):
     return [v for v in dict.fromkeys(varianten) if v]
 
 
-def ergaenze_db(db="abfallanlagen.db", auch_unplausibel=False, limit=None):
+def ergaenze_db(db="abfallanlagen.db", limit=None):
     with contextlib.closing(sqlite3.connect(db)) as con:
         con.row_factory = sqlite3.Row
         if "koord_quelle" not in {r[1] for r in con.execute("PRAGMA table_info(anlagen)")}:
             con.execute("ALTER TABLE anlagen ADD COLUMN koord_quelle TEXT")
             con.execute("UPDATE anlagen SET koord_quelle = 'Export' WHERE e_lv95 IS NOT NULL")
             con.commit()
-        stati = ["fehlt"] + (["unplausibel"] if auch_unplausibel else [])
-        platzhalter = ",".join("?" * len(stati))
-        offen = con.execute(
-            f"SELECT * FROM anlagen WHERE koord_status IN ({platzhalter})", stati).fetchall()
+        offen = con.execute("SELECT * FROM anlagen WHERE koord_status = 'fehlt'").fetchall()
         if limit:
             offen = offen[:limit]
         print(f"{len(offen)} Anlagen zu geokodieren …")
@@ -180,7 +181,7 @@ def ergaenze_db(db="abfallanlagen.db", auch_unplausibel=False, limit=None):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--db", default="abfallanlagen.db")
-    ap.add_argument("--auch-unplausibel", action="store_true")
+    ap.add_argument("--auch-unplausibel", action="store_true", help=argparse.SUPPRESS)
     ap.add_argument("--limit", type=int, help="nur die ersten N (zum Ausprobieren)")
     ap.add_argument("--test", help="einzelnen Suchtext abfragen und Rohantwort zeigen")
     args = ap.parse_args()
@@ -193,7 +194,10 @@ def main():
         print(json.dumps(antwort, ensure_ascii=False, indent=1)[:2000])
         print("\nAusgewertet:", suche(args.test))
         return
-    ergaenze_db(args.db, args.auch_unplausibel, args.limit)
+    if args.auch_unplausibel:
+        print("Hinweis: --auch-unplausibel wird nicht mehr unterstützt. Unplausible "
+              "Koordinaten bitte mit kontrolle.py prüfen und mit korrekturen.py setzen.")
+    ergaenze_db(args.db, args.limit)
 
 
 if __name__ == "__main__":

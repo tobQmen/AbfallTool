@@ -100,3 +100,23 @@ def parse_standort(text):
     if a > 1_000_000:
         return a, b
     return wgs84_zu_lv95(a, b)
+
+
+def zahlendreher(e, n, ziel_e, ziel_n, radius_km=5):
+    """Sucht einen Zahlendreher (zwei benachbarte Ziffern vertauscht) in E oder N.
+
+    Gibt (e, n) zurück, wenn genau eine Vertauschung den Punkt auf höchstens
+    radius_km an das Ziel heranbringt, sonst None. Beispiel: N 1'118'101 statt
+    1'181'101.
+    """
+    kandidaten = []
+    for achse, wert in (("e", e), ("n", n)):
+        s = str(int(round(wert)))
+        for i in range(1, len(s) - 1):  # erste Ziffer (LV95-Präfix) bleibt
+            if s[i] == s[i + 1]:
+                continue
+            neu = float(s[:i] + s[i + 1] + s[i] + s[i + 2:])
+            e2, n2 = (neu, n) if achse == "e" else (e, neu)
+            if _im_bereich(e2, n2) and distanz_luftlinie_km(e2, n2, ziel_e, ziel_n) <= radius_km:
+                kandidaten.append((e2, n2))
+    return kandidaten[0] if len(kandidaten) == 1 else None
