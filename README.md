@@ -298,21 +298,6 @@ Manuelle Werte haben Vorrang vor Geokodierung und Export und überleben jeden Im
 
 ---
 
-## Datenqualität des Exports melden
-
-    py datenqualitaet.py
-
-erstellt `datenqualitaet_abfallanlagen.xlsx` mit drei Blättern: alle Anlagen mit
-fehlender oder auffälliger Koordinate (Originalwert, Befund, Korrekturvorschlag mit
-Quelle und Kartenlinks), die Einträge, die nach Testdaten aussehen, und Hinweise zur
-Lesart. Erkannt werden unter anderem fehlende Werte, LV03-Werte, vertauschte Achsen,
-Tippfehler, Zahlendreher und Adressen, die über 20 km vom Standort entfernt liegen.
-
-Die Datei eignet sich als Rückmeldung an die Stellen, die die Daten pflegen. Die
-Vorschläge stammen aus Umrechnung und Adresssuche und sind nicht vor Ort geprüft.
-Am besten nach Import und Geokodierung ausführen, dann sind die Vorschläge vollständig.
-
----
 
 ## Dateien
 
